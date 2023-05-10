@@ -1,8 +1,0 @@
-# Created at 2023-05-10T21:11:06.058
-Unexpected IOException: 6,1,com.example.Ltnc.LtncApplicationTests,contextLoads,null,null,null
-
-
-# Created at 2023-05-10T21:11:06.061
-Unexpected IOException: 2,1,org.apache.maven.surefire.junitplatform.JUnitPlatformProvider,com.example.Ltnc.LtncApplicationTests,null,null,null
-
-
