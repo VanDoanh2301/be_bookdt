@@ -34,15 +34,15 @@ public class Doctor {
     @Column(name = "day")
     private String day;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"doctors", "handler","hibernateLazyInitializer"}, allowSetters = true)
     @JoinColumn(name = "specialistId")
     private Specialist specialist;
 
-    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<Time> times;
 
-    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<Appointment>  appointments;
 
     public Long getDoctorId() {

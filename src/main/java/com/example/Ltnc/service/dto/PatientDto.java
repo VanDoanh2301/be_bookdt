@@ -23,7 +23,7 @@ public class PatientDto {
 
     private String address;
 
-    private Date birthYear;
+    private String birthYear;
 
     private String password;
 

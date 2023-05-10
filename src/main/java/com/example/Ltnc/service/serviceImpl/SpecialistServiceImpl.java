@@ -182,4 +182,33 @@ public class SpecialistServiceImpl implements SpecialistService {
     public Page<Specialist> findBySpecialistNameContaining(String specialistName, Pageable pageable) {
         return specialistRepo.findBySpecialistNameContaining(specialistName, pageable);
     }
+
+
+    @Override
+    public Boolean existsBySpecialistName(String name) {
+        return specialistRepo.existsBySpecialistName(name);
+    }
+
+    @Override
+    public Boolean existsBySign(String sign) {
+        return specialistRepo.existsBySign(sign);
+    }
+
+
+    @Override
+    public Specialist findBySpecialistId(Long doctorId) {
+        return specialistRepo.findBySpecialistId(doctorId);
+    }
+
+
+    @Override
+    public Specialist findBySpecialistName(String name) {
+        return specialistRepo.findBySpecialistName(name);
+    }
+
+
+    @Override
+    public void deleteSpecialistByName(String name) {
+        specialistRepo.deleteSpecialistByName(name);
+    }
 }

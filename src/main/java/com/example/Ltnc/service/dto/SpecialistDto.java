@@ -15,5 +15,4 @@ public class SpecialistDto {
     private Long specialistId;
     private String specialistName;
     private String sign;
-    private Collection<Doctor> doctors;
 }

@@ -79,5 +79,9 @@ public interface TimeService {
 
     <S extends Time, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
 
+    Time findByPeriod(String period);
+
     Page<Time> findByPeriodContaining(String period, Pageable pageable);
+
+    void deleteTimeByPeriodAndDoctor(String period, Long doctorId);
 }

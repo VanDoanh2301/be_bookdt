@@ -14,7 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,7 +31,7 @@ public class PatientController {
 
     //Register patient
     @PostMapping("/newPatient")
-    public ResponseEntity<?> newPatient(@RequestBody PatientDto patientDto) {
+    public ResponseEntity<?> newPatient(@RequestBody PatientDto patientDto) throws ParseException {
 
         if (patientService.existsPatientByPhone(patientDto.getPhone())) {
             return ResponseEntity.ok("Phone number already exists");
@@ -50,6 +53,11 @@ public class PatientController {
         }
         Patient patient = new Patient();
         BeanUtils.copyProperties(patientDto, patient);
+        String birthYearStr = patientDto.getBirthYear();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date birthYearDate = formatter.parse(birthYearStr);
+        patient.setBirthYear(birthYearDate);
+
         patientService.save(patient);
         return ResponseEntity.ok("successfully");
     }

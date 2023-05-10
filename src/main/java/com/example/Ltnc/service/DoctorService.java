@@ -81,4 +81,8 @@ public interface DoctorService {
     Doctor findByDoctorId(Long id);
 
     List<Doctor> getDoctorTime(String period, Long specialistId);
+
+    Doctor findByName(String name);
+
+    void deleteDoctorByName(String name);
 }

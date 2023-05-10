@@ -193,4 +193,14 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepo.getDoctorTime(period, specialistId);
     }
 
+    @Override
+    public Doctor findByName(String name) {
+        return doctorRepo.findByName(name);
+    }
+
+
+    @Override
+    public void deleteDoctorByName(String name) {
+        doctorRepo.deleteDoctorByName(name);
+    }
 }

@@ -80,4 +80,14 @@ public interface SpecialistService {
     <S extends Specialist, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
 
     Page<Specialist> findBySpecialistNameContaining(String specialistName, Pageable pageable);
+
+    Boolean existsBySpecialistName(String name);
+
+    Boolean existsBySign(String sign);
+
+    Specialist findBySpecialistId(Long doctorId);
+
+    Specialist findBySpecialistName(String name);
+
+    void deleteSpecialistByName(String name);
 }

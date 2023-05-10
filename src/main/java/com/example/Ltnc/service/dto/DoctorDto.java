@@ -23,9 +23,8 @@ public class DoctorDto {
 
     private String phone;
 
-    private String speciality;
+    private String day;
 
-    private Specialist specialist;
+    private Long specialistId;
 
-    private Collection<Time> times;
 }

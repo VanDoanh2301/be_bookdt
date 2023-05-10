@@ -180,7 +180,19 @@ public class TimeServiceImpl implements TimeService {
     }
 
     @Override
+    public Time findByPeriod(String period) {
+        return timeRepo.findByPeriod(period);
+    }
+
+    @Override
     public Page<Time> findByPeriodContaining(String period, Pageable pageable) {
         return timeRepo.findByPeriodContaining(period, pageable);
+    }
+
+
+
+    @Override
+    public void deleteTimeByPeriodAndDoctor(String period, Long doctorId) {
+        timeRepo.deleteTimeByPeriodAndDoctor(period, doctorId);
     }
 }

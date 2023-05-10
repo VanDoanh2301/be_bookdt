@@ -1,7 +1,12 @@
 package com.example.Ltnc.controller;
 
 import com.example.Ltnc.model.domain.Doctor;
+import com.example.Ltnc.model.domain.Specialist;
+import com.example.Ltnc.model.domain.Time;
 import com.example.Ltnc.service.DoctorService;
+import com.example.Ltnc.service.SpecialistService;
+import com.example.Ltnc.service.dto.DoctorDto;
+import com.example.Ltnc.service.dto.TimeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +25,9 @@ import java.util.Optional;
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;
+
+    @Autowired
+    private SpecialistService specialistService;
 
     //Get all doctor
     @GetMapping("/doctors")
@@ -59,6 +67,33 @@ public class DoctorController {
             return ResponseEntity.ok("Null");
         }
         return new ResponseEntity<>(doctors, HttpStatus.OK);
+    }
+
+    @PostMapping("/newDoctor")
+    public ResponseEntity<?> newDoctor(@RequestBody DoctorDto doctorDto) {
+        Specialist specialist = specialistService.findBySpecialistId(doctorDto.getSpecialistId());
+        if (specialist == null) {
+            return ResponseEntity.badRequest().body("specialist is null");
+        }
+        Doctor doctor = new Doctor();
+        doctor.setDoctorId(doctorDto.getDoctorId());
+        doctor.setName(doctorDto.getName());
+        doctor.setAvatar(doctorDto.getAvatar());
+        doctor.setDay(doctorDto.getDay());
+        doctor.setPhone(doctorDto.getPhone());
+        doctor.setSpecialist(specialist);
+        doctor.setEmail(doctorDto.getEmail());
+        doctorService.save(doctor);
+        return ResponseEntity.ok("successfully");
+    }
+    @DeleteMapping("doctors/{name}")
+    public ResponseEntity<?> removeDoctorName(@PathVariable(name = "name") String name) {
+        Doctor doctor = doctorService.findByName(name);
+        if (doctor == null) {
+            return ResponseEntity.ok("Null");
+        }
+        doctorService.delete(doctor);
+        return ResponseEntity.ok("delete success");
     }
 
 

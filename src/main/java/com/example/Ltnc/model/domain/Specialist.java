@@ -23,7 +23,7 @@ public class Specialist {
     @Column(name = "sign")
     private String sign;
 
-   @OneToMany(mappedBy = "specialist")
+   @OneToMany(mappedBy = "specialist", cascade = CascadeType.ALL)
    private Collection<Doctor> doctors;
 
 }
