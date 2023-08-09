@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.Ltnc.LtncApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.629 s - in com.example.Ltnc.LtncApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.792 s - in com.example.Ltnc.LtncApplicationTests

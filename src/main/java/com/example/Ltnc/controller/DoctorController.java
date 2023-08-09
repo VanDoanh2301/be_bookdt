@@ -3,6 +3,7 @@ package com.example.Ltnc.controller;
 import com.example.Ltnc.model.domain.Doctor;
 import com.example.Ltnc.model.domain.Specialist;
 import com.example.Ltnc.model.domain.Time;
+import com.example.Ltnc.model.repository.DoctorRepository;
 import com.example.Ltnc.service.DoctorService;
 import com.example.Ltnc.service.SpecialistService;
 import com.example.Ltnc.service.dto.DoctorDto;
@@ -28,6 +29,9 @@ public class DoctorController {
 
     @Autowired
     private SpecialistService specialistService;
+
+    @Autowired
+    private DoctorRepository doctorRepo;
 
     //Get all doctor
     @GetMapping("/doctors")
@@ -73,19 +77,35 @@ public class DoctorController {
     public ResponseEntity<?> newDoctor(@RequestBody DoctorDto doctorDto) {
         Specialist specialist = specialistService.findBySpecialistId(doctorDto.getSpecialistId());
         if (specialist == null) {
-            return ResponseEntity.badRequest().body("specialist is null");
+            return ResponseEntity.badRequest().body("Specialist not found");
         }
-        Doctor doctor = new Doctor();
-        doctor.setDoctorId(doctorDto.getDoctorId());
-        doctor.setName(doctorDto.getName());
-        doctor.setAvatar(doctorDto.getAvatar());
-        doctor.setDay(doctorDto.getDay());
-        doctor.setPhone(doctorDto.getPhone());
-        doctor.setSpecialist(specialist);
-        doctor.setEmail(doctorDto.getEmail());
-        doctorService.save(doctor);
-        return ResponseEntity.ok("successfully");
+
+        Doctor existingDoctor = doctorRepo.findByEmail(doctorDto.getEmail());
+        if (existingDoctor != null) {
+            // Update existing doctor's information
+            existingDoctor.setName(doctorDto.getName());
+            existingDoctor.setAvatar(doctorDto.getAvatar());
+            existingDoctor.setDay(doctorDto.getDay());
+            existingDoctor.setPhone(doctorDto.getPhone());
+            existingDoctor.setSpecialist(specialist);
+            // No need to update doctorId, as it's used as an identifier
+            doctorService.save(existingDoctor);
+            return ResponseEntity.ok("Doctor updated successfully");
+        }
+
+        // Create a new doctor
+        Doctor newDoctor = new Doctor();
+        newDoctor.setDoctorId(doctorDto.getDoctorId());
+        newDoctor.setName(doctorDto.getName());
+        newDoctor.setAvatar(doctorDto.getAvatar());
+        newDoctor.setDay(doctorDto.getDay());
+        newDoctor.setPhone(doctorDto.getPhone());
+        newDoctor.setSpecialist(specialist);
+        newDoctor.setEmail(doctorDto.getEmail());
+        doctorService.save(newDoctor);
+        return ResponseEntity.ok("Doctor created successfully");
     }
+
     @DeleteMapping("doctors/{name}")
     public ResponseEntity<?> removeDoctorName(@PathVariable(name = "name") String name) {
         Doctor doctor = doctorService.findByName(name);
