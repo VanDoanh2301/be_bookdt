@@ -77,7 +77,8 @@ public class WebSecurityConfig {
         http.cors().and().csrf().disable()
 //                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                   .authorizeRequests().requestMatchers("/login").permitAll()
-                .anyRequest().permitAll()
+                .requestMatchers("/api/**").permitAll()
+                  .anyRequest().permitAll()
         ;
 //                  .requestMatchers("/api/users").permitAll()
 //                  .requestMatchers("/api/auth/users").hasAnyAuthority("ADMIN","USER")
